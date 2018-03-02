@@ -64,6 +64,11 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: adj_sale_price {
+    type: number
+    sql: ${sale_price} * .93 ;;
+  }
+
   dimension_group: shipped {
     type: time
     timeframes: [
@@ -88,6 +93,22 @@ view: order_items {
     # hidden: yes
     sql: ${TABLE}.user_id ;;
   }
+
+  measure: total_sales {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+
+  }
+
+  measure: total_adjusted_sales {
+    type: sum
+    label: "Total Sales Net of Tax"
+    description: "This assumes an even tax rate of 7%"
+    sql: ${adj_sale_price} ;;
+    value_format_name: usd
+  }
+
 
   measure: count {
     type: count
