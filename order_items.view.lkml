@@ -84,6 +84,7 @@ view: order_items {
   }
 
   dimension: status {
+    label: "Status"
     type: string
     sql: ${TABLE}.status ;;
   }
@@ -108,6 +109,16 @@ view: order_items {
     sql: ${adj_sale_price} ;;
     value_format_name: usd
   }
+
+  measure:  sales_per_user {
+    type: number
+    sql:
+        ${total_sales}*1.0 / nullif(${users.count},0)
+    ;;
+#     value_format: "$#,###.00"
+  value_format_name: usd
+  }
+
 
 
   measure: count {
