@@ -10,3 +10,8 @@ explore: order_items {
     relationship: many_to_one
   }
 }
+
+explore: order_items_2 {
+  from: order_items
+  fields: [ALL_FIELDS*,-order_items_2.sales_per_user]
+}
